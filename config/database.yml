@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: rails_boot_dev
+  username: postgres
+  host: 192.168.0.72
+
+test:
+  <<: *default
+  database: rails_boot_test
+
+production:
+  <<: *default
+  database: rails_boot
+  username: untitled1
+  password: <%= ENV['UNTITLED1_DATABASE_PASSWORD'] %>
