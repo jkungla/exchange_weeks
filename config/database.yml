@@ -17,5 +17,5 @@ test:
 production:
   <<: *default
   database: rails_boot
-  username: untitled1
-  password: <%= ENV['UNTITLED1_DATABASE_PASSWORD'] %>
+  username: myapp
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
