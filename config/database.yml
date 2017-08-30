@@ -6,9 +6,7 @@ default: &default
 
 development:
   <<: *default
-  database: rails_boot_dev
-  username: postgres
-  host: 192.168.0.72
+  url: <%= ENV['DATABASE_URL'] %>
 
 test:
   <<: *default
@@ -16,6 +14,4 @@ test:
 
 production:
   <<: *default
-  database: rails_boot
-  username: myapp
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
