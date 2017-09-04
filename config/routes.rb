@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'visitors#index'
+
+  resources :calculations
+
+  root to: 'calculations#new'
 end
