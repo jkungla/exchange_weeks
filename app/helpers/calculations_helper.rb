@@ -20,7 +20,7 @@ module CalculationsHelper
   protected
 
   def get_cached_data(uri)
-    cache uri do
+    Rails.cache.fetch(uri, :expires_in => 24.hours) do
       RestClient::Resource.new(uri).get
     end
   end
