@@ -8,8 +8,7 @@ module CalculationsHelper
 
   def get_rate(date, base, target)
     uri = make_uri(date, base, target)
-    rest_resource = get_cached_data(uri)
-    data = JSON.parse(rest_resource)
+    data = get_cached_data(uri)
     data['rates'][target]
   end
 
@@ -20,9 +19,7 @@ module CalculationsHelper
   protected
 
   def get_cached_data(uri)
-    Rails.cache.fetch(uri, :expires_in => 24.hours) do
-      RestClient::Resource.new(uri).get
-    end
+    Rails.cache.fetch(uri, {:expires_in => 24.hours, :raw => true}) { JSON.parse(RestClient::Resource.new(uri).get) }
   end
 
   def make_uri(date, base, target)
