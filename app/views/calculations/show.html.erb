@@ -1,1 +1,29 @@
-<%= @calculation.to_json %>
+<h2>Table</h2>
+<br>
+<h4>Amount that is going to be converted: <%= @calculation.amount.to_f.round(2).to_s %> <%= @calculation.base.to_s %></h4>
+
+<table class=" table table-striped sortable">
+  <thead>
+  <tr>
+    <th>Year / week</th>
+    <th>Rate</th>
+    <th>Exchanged amount</th>
+    <th>Profit/Loss</th>
+    <th>Rank</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @data.each do |week| %>
+      <tr>
+        <td><%= week["year"].to_s %> / <%= week["week"].to_s %></td>
+        <td><%= week["rate"].to_s %></td>
+        <td><%= (@calculation.amount.to_f * week["rate"].to_f).round(2).to_s %> <%= @calculation.target.to_s %></td>
+        <th>Profit/Loss</th>
+        <th>Rank</th>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,6 +1,15 @@
 <%# navigation styled for Bootstrap 4.0 %>
 <div class="container">
   <nav class="navbar navbar-dark bg-inverse">
+    <% if user_signed_in? %>
+        <li>
+          <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+        </li>
+    <% else %>
+        <li>
+          <%= link_to('Login', new_user_session_path)  %>
+        </li>
+    <% end %>
     <ul class="nav navbar-nav clearfix">
       <li class="nav-item">
         <button class="navbar-toggler hidden-sm-up nav-link" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">

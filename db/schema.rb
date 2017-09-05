@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20170904115804) do
   create_table "calculations", force: :cascade do |t|
     t.string "base"
     t.string "target"
-    t.integer "amount"
-    t.datetime "wait_time"
+    t.float "amount"
+    t.integer "wait_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
