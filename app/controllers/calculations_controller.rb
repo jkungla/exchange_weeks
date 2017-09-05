@@ -15,8 +15,9 @@ class CalculationsController < ApplicationController
         week_nr = date.strftime("%U").to_i
         year = date.year
         date = date.beginning_of_week.strftime("%F") # Use the weeks first day for better cache usage
-        @data << {"week" => week_nr, "year" => year, "rate" => get_rate(date, @calculation.base, @calculation.target)}
+        @data << {"week" => week_nr, "year" => year, "rate" => get_rate(date, @calculation.base, @calculation.target), "week_ago" => week_ago_text(time)}
       end
+      @todays_rate = @data.first["rate"].to_f
       @data = find_rank(@data)
     end
   end

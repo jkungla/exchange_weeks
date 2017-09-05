@@ -16,10 +16,10 @@
   <tbody>
   <% @data.each do |week| %>
       <tr>
-        <td><%= week["year"].to_s %> / <%= week["week"].to_s %></td>
+        <td><%= week["year"].to_s %> / <%= week["week"].to_s %> - (<%= week["week_ago"].to_s %>)</td>
         <td><%= week["rate"].to_s %></td>
         <td><%= (@calculation.amount.to_f * week["rate"].to_f).round(2).to_s %> <%= @calculation.target.to_s %></td>
-        <th>Profit/Loss</th>
+        <th><%= ( ((@calculation.amount.to_f * week["rate"].to_f) / @todays_rate.to_f) - @calculation.amount.to_f).round(2).to_s %> <%= @calculation.target.to_s %></th>
         <th>Rank</th>
       </tr>
   <% end %>

@@ -16,6 +16,16 @@ module CalculationsHelper
     data
   end
 
+  def week_ago_text(week)
+    if week == 0
+      "this week"
+    elsif week == 1
+      "1 week ago"
+    else
+      "#{week.to_s} weeks ago"
+    end
+  end
+
   protected
 
   def get_cached_data(uri)
