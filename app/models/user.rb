@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  devise :timeoutable, :timeout_in => 15.minutes
+  devise :timeoutable, timeout_in: 15.minutes
 end

@@ -10,23 +10,33 @@ class CalculationsController < ApplicationController
     @calculation = Calculation.find(params[:id])
     if @calculation
       @data = []
-      @calculation.wait_time.times do |time|
+      todays_exchange = 0
+      @calculation.wait_time.times do |time| # loop for inserted "wait_time" times
         date = Time.now - time.weeks
-        week_nr = date.strftime("%U").to_i
-        year = date.year
-        date = date.beginning_of_week.strftime("%F") # Use the weeks first day for better cache usage
-        @data << {"week" => week_nr, "year" => year, "rate" => get_rate(date, @calculation.base, @calculation.target), "week_ago" => week_ago_text(time)}
+        rate = get_rate(date.beginning_of_week.strftime("%F"), @calculation.base, @calculation.target)
+        todays_exchange = rate * @calculation.amount.to_f if todays_exchange == 0  #Finding todays exchange amount for calculating profit/loss
+
+        @data << {
+            "week" => date.strftime("%U").to_i , "year" => date.year, "id" => time,
+            "rate" => rate, "week_ago" => week_ago_text(time), "rank" => "",
+            "exchange_amount" => (@calculation.amount.to_f * rate.to_f).round(2),
+            "profit_loss" => ((@calculation.amount.to_f * rate.to_f) - todays_exchange.to_f).round(2)
+        }
       end
-      @todays_rate = @data.first["rate"].to_f
+
       @data = find_rank(@data)
+      @graph_data = data_to_graph_format(@data)
     end
   end
 
   def create
     @calculation = Calculation.new(calculation_params)
-
-    @calculation.save
-    redirect_to @calculation
+    if @calculation.save
+      redirect_to @calculation
+    else
+      flash[:error] = @calculation.errors.full_messages.first
+      render action: "new"
+    end
   end
 
   private

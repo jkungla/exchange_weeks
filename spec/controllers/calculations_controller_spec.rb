@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CalculationsController, :type => :controller do
+RSpec.describe CalculationsController, type: :controller do
   describe "anonymous user" do
     before :each do
       # This simulates an anonymous user

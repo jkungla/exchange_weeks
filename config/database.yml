@@ -11,6 +11,9 @@ development:
 test:
   <<: *default
   database: rails_boot_test
+  username: postgres
+  password: Abc123
+  host: 192.168.0.72
 
 production:
   <<: *default

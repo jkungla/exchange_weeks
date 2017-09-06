@@ -1,29 +1,47 @@
-<h2>Table</h2>
-<br>
-<h4>Amount that is going to be converted: <%= @calculation.amount.to_f.round(2).to_s %> <%= @calculation.base.to_s %></h4>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" href="#table" role="tab" data-toggle="tab">Table</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#graph" role="tab" data-toggle="tab">Graph</a>
+  </li>
+</ul>
 
-<table class=" table table-striped sortable">
-  <thead>
-  <tr>
-    <th>Year / week</th>
-    <th>Rate</th>
-    <th>Exchanged amount</th>
-    <th>Profit/Loss</th>
-    <th>Rank</th>
-  </tr>
-  </thead>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active show" id="table">
+    <br>
+    <h4>Amount that is going to be converted: <%= @calculation.amount.to_f.round(2).to_s %> <%= @calculation.base.to_s %></h4>
+    <br>
 
-  <tbody>
-  <% @data.each do |week| %>
+    <table class=" table table-striped sortable">
+      <thead>
       <tr>
-        <td><%= week["year"].to_s %> / <%= week["week"].to_s %> - (<%= week["week_ago"].to_s %>)</td>
-        <td><%= week["rate"].to_s %></td>
-        <td><%= (@calculation.amount.to_f * week["rate"].to_f).round(2).to_s %> <%= @calculation.target.to_s %></td>
-        <th><%= ( ((@calculation.amount.to_f * week["rate"].to_f) / @todays_rate.to_f) - @calculation.amount.to_f).round(2).to_s %> <%= @calculation.target.to_s %></th>
+        <th>Year / week</th>
+        <th>Rate</th>
+        <th>Exchanged amount</th>
+        <th>Profit/Loss</th>
         <th>Rank</th>
       </tr>
-  <% end %>
-  </tbody>
-</table>
+      </thead>
 
-<br>
+      <tbody>
+      <% @data.each do |week| %>
+          <tr>
+            <td><%= week["year"].to_s %> / <%= week["week"].to_s %> - (<%= week["week_ago"].to_s %>)</td>
+            <td><%= week["rate"].to_s %></td>
+            <td><%= week["exchange_amount"].to_s %> <%= @calculation.target.to_s %></td>
+            <th><%= week["profit_loss"].to_s %> <%= @calculation.target.to_s %></th>
+            <th><%= week["rank"].to_s %></th>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+  </div>
+  <div role="tabpanel" class="tab-pane fade" id="graph">
+    <br>
+    <%= line_chart(@graph_data) %>
+  </div>
+</div>
+
