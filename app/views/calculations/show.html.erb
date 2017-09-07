@@ -28,18 +28,18 @@
       <tbody>
       <% @data.each do |week| %>
           <tr>
-            <td><%= week["year"].to_s %> / <%= week["week"].to_s %> - (<%= week["week_ago"].to_s %>)</td>
-            <td><%= week["rate"].to_s %></td>
-            <td><%= week["exchange_amount"].to_s %> <%= @calculation.target.to_s %></td>
-            <th><%= week["profit_loss"].to_s %> <%= @calculation.target.to_s %></th>
-            <th><%= week["rank"].to_s %></th>
+            <td><%= week['year'].to_s %> / <%= week['week'].to_s %> - (<%= week['week_ago'].to_s %>)</td>
+            <td><%= week['rate'].to_s %></td>
+            <td><%= week['exchange_amount'].to_s %> <%= @calculation.target.to_s %></td>
+            <th><%= week['profit_loss'].to_s %> <%= @calculation.target.to_s %></th>
+            <th><%= week['rank'].to_s %></th>
           </tr>
       <% end %>
       </tbody>
     </table>
 
   </div>
-  <div role="tabpanel" class="tab-pane fade" id="graph">
+  <div role='tabpanel' class='tab-pane fade' id='graph'>
     <br>
     <%= line_chart(@graph_data) %>
   </div>
