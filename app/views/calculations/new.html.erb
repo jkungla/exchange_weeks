@@ -1,46 +1,89 @@
-<div class='jumbotron'>
-  <h2 >Best possible time for converting money from one currency to another</h2>
-  <p class='lead'>
-    <%= form_for @calculation, :html => {:class => 'form-horizontal center'} do |f| %>
-      <div class='form-group'>
-        <%= f.label :base, 'Base currency:', class: 'col-md-4 control-label' %>
-        <div class='col-md-2'>
-          <%= f.select :base, options_for_select([['AUD', 'AUD'], ['BGN', 'BGN'], ['BRL', 'BRL'],
-                                                  ['CAD', 'CAD'], ['CHF', 'CHF'], ['CNY', 'CNY'],
-                                                  ['CZK', 'CZK'], ['DKK', 'DKK'], ['EUR', 'EUR'],
-                                                  ['GBP', 'GBP'], ['HKD', 'HKD'], ['HRK', 'HRK'],
-                                                  ['HUF', 'HUF'], ['IDR', 'IDR'], ['ILS', 'ILS'],
-                                                  ['INR', 'INR'], ['USD', 'USD']], 'USD'), {}, {class: 'form-control'} %>
-        </div>
-      </div>
-      <div class='form-group'>
-        <%= f.label :target, 'Target currency:', class: 'col-md-4 control-label' %>
-        <div class='col-md-2'>
-          <%= f.select :target, options_for_select([['AUD', 'AUD'], ['BGN', 'BGN'], ['BRL', 'BRL'],
-                                                    ['CAD', 'CAD'], ['CHF', 'CHF'], ['CNY', 'CNY'],
-                                                    ['CZK', 'CZK'], ['DKK', 'DKK'], ['EUR', 'EUR'],
-                                                    ['GBP', 'GBP'], ['HKD', 'HKD'], ['HRK', 'HRK'],
-                                                    ['HUF', 'HUF'], ['IDR', 'IDR'], ['ILS', 'ILS'],
-                                                    ['INR', 'INR'], ['USD', 'USD']], 'EUR'), {}, {class: 'form-control'} %>
-        </div>
-      </div>
-      <div class='form-group'>
-        <%= f.label :amount, 'Amount:', class: 'col-md-4 control-label' %>
-        <div class='col-md-3'>
-          <%= f.text_field :amount, class: 'form-control', :value => (number_with_precision(f.object.amount, :precision => 2) || 0) %>
-        </div>
-      </div>
-      <div class='form-group'>
-        <%= f.label :wait_time, 'Max. waiting time:', class: 'col-md-4 control-label' %>
-        <div class='col-md-4'>
-          <%= f.number_field :wait_time, class: 'form-control' %>
-        </div>
-      </div>
-      <div class='form-group'>
-        <div class='col-md-4'>
-          <%= f.submit 'Calculate', class: 'btn btn-default btn-primary' %>
-        </div>
-      </div>
-  <% end %>
-  </p>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" href="#new" role="tab" data-toggle="tab">New calculation</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#show" role="tab" data-toggle="tab">All calculations</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade in active show" id="new">
+    <div class='jumbotron'>
+      <h2 >Best possible time for converting money from one currency to another</h2>
+      <p class='lead'>
+        <%= form_for @calculation, :html => {:class => 'form-horizontal center'} do |f| %>
+          <div class='form-group'>
+            <%= f.label :base, 'Base currency:', class: 'col-md-4 control-label' %>
+            <div class='col-md-2'>
+              <%= f.select :base, options_for_select([['AUD', 'AUD'], ['BGN', 'BGN'], ['BRL', 'BRL'],
+                                                      ['CAD', 'CAD'], ['CHF', 'CHF'], ['CNY', 'CNY'],
+                                                      ['CZK', 'CZK'], ['DKK', 'DKK'], ['EUR', 'EUR'],
+                                                      ['GBP', 'GBP'], ['HKD', 'HKD'], ['HRK', 'HRK'],
+                                                      ['HUF', 'HUF'], ['IDR', 'IDR'], ['ILS', 'ILS'],
+                                                      ['INR', 'INR'], ['USD', 'USD']], 'USD'), {}, {class: 'form-control'} %>
+            </div>
+          </div>
+          <div class='form-group'>
+            <%= f.label :target, 'Target currency:', class: 'col-md-4 control-label' %>
+            <div class='col-md-2'>
+              <%= f.select :target, options_for_select([['AUD', 'AUD'], ['BGN', 'BGN'], ['BRL', 'BRL'],
+                                                        ['CAD', 'CAD'], ['CHF', 'CHF'], ['CNY', 'CNY'],
+                                                        ['CZK', 'CZK'], ['DKK', 'DKK'], ['EUR', 'EUR'],
+                                                        ['GBP', 'GBP'], ['HKD', 'HKD'], ['HRK', 'HRK'],
+                                                        ['HUF', 'HUF'], ['IDR', 'IDR'], ['ILS', 'ILS'],
+                                                        ['INR', 'INR'], ['USD', 'USD']], 'EUR'), {}, {class: 'form-control'} %>
+            </div>
+          </div>
+          <div class='form-group'>
+            <%= f.label :amount, 'Amount:', class: 'col-md-4 control-label' %>
+            <div class='col-md-3'>
+              <%= f.text_field :amount, class: 'form-control', :value => (number_with_precision(f.object.amount, :precision => 2) || 0) %>
+            </div>
+          </div>
+          <div class='form-group'>
+            <%= f.label :wait_time, 'Max. waiting time:', class: 'col-md-4 control-label' %>
+            <div class='col-md-4'>
+              <%= f.number_field :wait_time, class: 'form-control' %>
+            </div>
+          </div>
+          <div class='form-group'>
+            <div class='col-md-4'>
+              <%= f.submit 'Calculate', class: 'btn btn-default btn-primary' %>
+            </div>
+          </div>
+      <% end %>
+      </p>
+    </div>
+  </div>
+  <div role='tabpanel' class='tab-pane fade' id='show'>
+    <table class=" table table-striped sortable">
+      <thead>
+      <tr>
+        <th>Base</th>
+        <th>Target</th>
+        <th>Amount</th>
+        <th>Wait time</th>
+        <th>Created date</th>
+        <th>Edit</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @calculations.each do |calculation| %>
+          <tr>
+            <td><%= calculation.base %></td>
+            <td><%= calculation.target %></td>
+            <td><%= calculation.amount.to_s %></td>
+            <th><%= calculation.wait_time.to_s %></th>
+            <th><%= calculation.created_at.to_s %></th>
+            <th><%= link_to 'Edit', edit_calculation_path(calculation), :class => 'mark-button' %>
+              / <%= link_to 'Delete', calculation_path(calculation),
+                            data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'mark-button' %></th>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

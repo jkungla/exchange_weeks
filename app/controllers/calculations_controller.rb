@@ -1,9 +1,19 @@
 class CalculationsController < ApplicationController
   include CalculationsHelper
   before_action :authenticate_user!
+  before_action :all_calculations, :only => [:index, :new, :edit]
+
+  def index
+    redirect_to new_calculation_path
+  end
 
   def new
     @calculation = Calculation.new
+  end
+
+  def edit
+    @calculation = Calculation.find(params[:id])
+    render action: 'new'
   end
 
   def show
@@ -45,9 +55,32 @@ class CalculationsController < ApplicationController
     end
   end
 
+  def update
+    @calculation = Calculation.new(calculation_params)
+    if @calculation.save
+      redirect_to @calculation
+    else
+      flash[:error] = @calculation.errors.full_messages.first
+      render action: 'new'
+    end
+  end
+
+  def destroy
+    @calculation = Calculation.find(params[:id])
+    @calculation.destroy
+    respond_to do |format|
+      format.html { redirect_to new_calculation_path }
+      format.xml  { head :ok }
+    end
+  end
+
   private
 
   def calculation_params
     params.require(:calculation).permit(:base, :target, :amount, :wait_time)
+  end
+
+  def all_calculations
+    @calculations ||= Calculation.all
   end
 end
